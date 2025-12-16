@@ -32,12 +32,21 @@ class Ship:
     def place_ship(self):
         if self.vertical:
             for i in range(self.length):
-                board[self.start[0]][self.start[1]-i] = 1
+                board[self.start[0]][self.start[1]+i] = 1
         else:
             for i in range(self.length):
-                board[self.start[0]-i][self.start[1]] = 1
+                board[self.start[0]+i][self.start[1]] = 1
 
-destroyer = Ship(3, True, (3,3))
+def ShipButton(picture, coords, surface):
+    image = pg.image.load(picture)
+    imagerect = image.get_rect()
+    imagerect.topleft = coords
+    surface.blit(image, imagerect)
+    return(image, imagerect)
+
+destroyer_knap = ShipButton('destroyer.jpg', (50, 50), screen)
+
+destroyer = Ship(5, False, (3,3))
 destroyer.place_ship()                
 
 while running:
