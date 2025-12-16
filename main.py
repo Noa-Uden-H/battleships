@@ -1,5 +1,6 @@
 import pygame as pg
 import pygame.display as disp
+import numpy as np
 
 pg.init()
 screenwidth = 1280
@@ -8,6 +9,8 @@ screen = disp.set_mode((screenwidth, screenheight))
 clock = pg.time.Clock()
 running = True
 
+board = np.zeros((10,10))
+
 def grid(gridsize, gridamount):
     top = screenwidth / 16
     left = screenheight * 6/8 
@@ -15,7 +18,27 @@ def grid(gridsize, gridamount):
     for x in range(gridamount):
         for y in range(gridamount):
             gridsquare = pg.Rect(gridspacing*x + left + 5*x, gridspacing*y + top +5*y, gridspacing, gridspacing)
-            pg.draw.rect(screen, (50, 50, 255), gridsquare)
+            if board[x][y] == 1:
+                pg.draw.rect(screen, (50, 50, 100), gridsquare)
+            else:    
+                pg.draw.rect(screen, (50, 50, 255), gridsquare)
+
+class Ship:
+    def __init__(self, length=int, vertical=bool, start=tuple):
+        self.length = length
+        self.vertical = vertical
+        self.start = start
+
+    def place_ship(self):
+        if self.vertical:
+            for i in range(self.length):
+                board[self.start[0]][self.start[1]-i] = 1
+        else:
+            for i in range(self.length):
+                board[self.start[0]-i][self.start[1]] = 1
+
+destroyer = Ship(3, True, (3,3))
+destroyer.place_ship()                
 
 while running:
     clock.tick(60) #60 fps
