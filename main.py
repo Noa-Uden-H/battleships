@@ -37,12 +37,17 @@ class Ship:
             for i in range(self.length):
                 board[self.start[0]+i][self.start[1]] = 1
 
-def ShipButton(picture, coords, surface):
-    image = pg.image.load(picture)
-    imagerect = image.get_rect()
-    imagerect.topleft = coords
-    surface.blit(image, imagerect)
-    return(image, imagerect)
+class Button:
+    def __init__(self, picture=str, coords=tuple, surface=any):
+        self.picture = picture
+        self.coords = coords
+        self.surface = surface
+        self.image = pg.image.load(self.picture)
+        self.imagerect = self.image.get_rect()
+        self.imagerect.topleft = self.coords
+
+    def show(self):
+        self.surface.blit(self.image, self.imagerect)
 
 destroyer = Ship(5, False, (3,3))
 destroyer.place_ship()                
@@ -59,7 +64,8 @@ while running:
     #Render
 
     grid(500, 10)
-    destroyer_button = ShipButton('destroyer.jpg', (50, 50), screen)
+    destroyer_button = Button('destroyer.jpg', (50, 50), screen)
+    destroyer_button.show()
 
     disp.flip()
 
