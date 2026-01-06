@@ -44,8 +44,6 @@ def ShipButton(picture, coords, surface):
     surface.blit(image, imagerect)
     return(image, imagerect)
 
-destroyer_knap = ShipButton('destroyer.jpg', (50, 50), screen)
-
 destroyer = Ship(5, False, (3,3))
 destroyer.place_ship()                
 
@@ -61,6 +59,7 @@ while running:
     #Render
 
     grid(500, 10)
+    destroyer_button = ShipButton('destroyer.jpg', (50, 50), screen)
 
     disp.flip()
 
